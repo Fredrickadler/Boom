@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Finder</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+        #status { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Wallet Finder</h1>
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <div id="status">Status: {{ "Running" if running else "Stopped" }}</div>
+
+    <script>
+        async function start() {
+            const response = await fetch("/start", { method: "POST" });
+            const data = await response.json();
+            document.getElementById("status").innerText = `Status: ${data.status}`;
+        }
+
+        async function stop() {
+            const response = await fetch("/stop", { method: "POST" });
+            const data = await response.json();
+            document.getElementById("status").innerText = `Status: ${data.status}`;
+        }
+    </script>
+</body>
+</html>
